@@ -1,0 +1,60 @@
+[MASTER]
+# Python code to be checked
+ignore=migrations,.venv,venv,env,__pycache__
+load-plugins=pylint_django
+
+# Required when using Django
+init-hook='import sys, os; sys.path.append(os.getcwd()); os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings")'
+
+[MESSAGES CONTROL]
+# Disable selected warnings
+disable=
+    missing-module-docstring,
+    missing-class-docstring,
+    missing-function-docstring,
+    #too-few-public-methods,
+    #no-member,  # Useful for dynamic Django fields
+    #no-self-use,
+    #useless-super-delegation,
+    #logging-fstring-interpolation,
+    #duplicate-code
+    arguments-differ
+
+[TYPECHECK]
+# Sometimes Pylint can't infer Django model fields correctly
+generated-members=requests.*,objects,DoesNotExist,MultipleObjectsReturned
+
+[FORMAT]
+# Formatting rules
+max-line-length=100
+indent-string='    '
+indent-after-paren=4
+
+[DESIGN]
+# Allow utility classes with only one method
+min-public-methods=1
+max-args=10
+max-locals=30
+max-returns=10
+max-branches=15
+max-statements=50
+max-parents=7
+max-attributes=10
+
+[REPORTS]
+# No report summary at the end
+reports=no
+output-format=colorized
+
+[LOGGING]
+logging-format-style=old
+
+[REFACTORING]
+# Disable some refactor warnings
+max-nested-blocks=5
+
+[SIMILARITIES]
+# Ignore similarity check
+ignore-comments=yes
+ignore-docstrings=yes
+ignore-imports=yes
