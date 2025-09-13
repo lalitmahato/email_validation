@@ -1,0 +1,146 @@
+[
+  {
+    "model": "email_service.dkimdefaultselector",
+    "pk": "9007cfc0-9c54-4e3b-84b1-a79849482efc",
+    "fields": {
+      "service_provider": "postmarkapp.com",
+      "domain": "postmarkapp.com",
+      "selector": ["pm"]
+    }
+  },
+  {
+    "model": "email_service.dkimdefaultselector",
+    "pk": "90dcb47a-5632-4c61-add4-9a2b4f9d884b",
+    "fields": {
+      "service_provider": "mandrillapp.com",
+      "domain": "mandrillapp.com",
+      "selector": ["mandrill"]
+    }
+  },
+  {
+    "model": "email_service.dkimdefaultselector",
+    "pk": "59ec3c3c-3ef8-4c15-90c8-671d477dd887",
+    "fields": {
+      "service_provider": "smtpmail.svc",
+      "domain": "smtpmail.svc",
+      "selector": ["selector1", "selector2"]
+    }
+  },
+  {
+    "model": "email_service.dkimdefaultselector",
+    "pk": "9a1007b6-d93d-41b6-a31a-1aeb6147240c",
+    "fields": {
+      "service_provider": "hubspotemail.net",
+      "domain": "hubspotemail.net",
+      "selector": ["hs1", "hs2"]
+    }
+  },
+  {
+    "model": "email_service.dkimdefaultselector",
+    "pk": "8a73d4c6-dcde-4c4c-9b1c-84addbf4bf96",
+    "fields": {
+      "service_provider": "outlook.com",
+      "domain": "outlook.com",
+      "selector": ["atl1", "atl2"]
+    }
+  },
+  {
+    "model": "email_service.dkimdefaultselector",
+    "pk": "cfd59961-4298-4a18-b244-cd7d367c050f",
+    "fields": {
+      "service_provider": "atlassian.net",
+      "domain": "atlassian.net",
+      "selector": ["atl1", "atl2"]
+    }
+  },
+  {
+    "model": "email_service.dkimdefaultselector",
+    "pk": "71d74a10-abdb-4955-9748-e3f60e19f316",
+    "fields": {
+      "service_provider": "messagingengine.com",
+      "domain": "messagingengine.com",
+      "selector": ["fm1", "fm2", "fm3"]
+    }
+  },
+  {
+    "model": "email_service.dkimdefaultselector",
+    "pk": "e143cab0-8c67-4794-ab49-b5a02e413a34",
+    "fields": {
+      "service_provider": "mailgun.org",
+      "domain": "mailgun.org",
+      "selector": ["mg"]
+    }
+  },
+  {
+    "model": "email_service.dkimdefaultselector",
+    "pk": "d938ee3f-de44-495a-b235-14b1cb7b1ef1",
+    "fields": {
+      "service_provider": "sendgrid.net",
+      "domain": "sendgrid.net",
+      "selector": ["s1", "s2"]
+    }
+  },
+  {
+    "model": "email_service.dkimdefaultselector",
+    "pk": "f20e7e91-b1ef-4880-b523-07a6b2afff03",
+    "fields": {
+      "service_provider": "protonmail.ch",
+      "domain": "protonmail.ch",
+      "selector": ["protonmail"]
+    }
+  },
+  {
+    "model": "email_service.dkimdefaultselector",
+    "pk": "441de7dd-e252-49a8-a515-7fddb44d84fa",
+    "fields": {
+      "service_provider": "yahoodns.net",
+      "domain": "yahoodns.net",
+      "selector": ["default"]
+    }
+  },
+  {
+    "model": "email_service.dkimdefaultselector",
+    "pk": "7433e78e-f8e4-41fa-a354-a46f6eb944fe",
+    "fields": {
+      "service_provider": "yahoo.com",
+      "domain": "yahoo.com",
+      "selector": ["default"]
+    }
+  },
+  {
+    "model": "email_service.dkimdefaultselector",
+    "pk": "25ae8f9d-9b50-48e8-8238-8e65f4e1995d",
+    "fields": {
+      "service_provider": "outlook.com",
+      "domain": "outlook.com",
+      "selector": ["selector1", "selector2"]
+    }
+  },
+  {
+    "model": "email_service.dkimdefaultselector",
+    "pk": "fad948a0-6249-4399-8211-687c20212985",
+    "fields": {
+      "service_provider": "google.com",
+      "domain": "google.com",
+      "selector": ["google", "20230601"]
+    }
+  },
+  {
+    "model": "email_service.dkimdefaultselector",
+    "pk": "92e76163-164f-4338-b0b9-a99c9869a054",
+    "fields": {
+      "service_provider": "zoho.com",
+      "domain": "zoho.com",
+      "selector": ["zmail", "zoho"]
+    }
+  },
+  {
+    "model": "email_service.dkimdefaultselector",
+    "pk": "295347be-be54-4800-a7dd-9e1f4ca34818",
+    "fields": {
+      "service_provider": "cloudflare.net",
+      "domain": "cloudflare.net",
+      "selector": ["default"]
+    }
+  }
+]
