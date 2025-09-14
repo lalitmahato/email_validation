@@ -4,7 +4,7 @@ import os
 
 from celery import Celery, shared_task
 from celery.schedules import crontab
-from django.db import transaction
+from django.db import transaction, IntegrityError
 
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
@@ -77,3 +77,45 @@ def get_smtp_records(email):
     from email_service.utils import get_smtp_records
     records = get_smtp_records(email)
     return records
+
+
+@app.task
+def create_email_domain_record(emails_domains):
+    from email_service.models import EmailDomains
+    from email_service.utils import (
+        get_mx_records, get_top_level_domain, get_dkim_selector, smtp_verification, check_spf, check_dmarc, check_dkim
+    )
+    domain = emails_domains.get("domain")
+    email = emails_domains.get("email")
+    if not EmailDomains.objects.filter(domain=domain).exists():
+        mx_status, mx_records = get_mx_records(domain)
+        if not mx_status:
+            return {"email": email, "message": "MX Record is missing"}
+        mx_top_level_domain = get_top_level_domain(mx_records[0])
+        dkim_selectors = get_dkim_selector(mx_top_level_domain)
+        smtp_status, smtp_response = smtp_verification(mx_records[0], email)
+        spf_status, spf_records = check_spf(domain)
+        dmarc_status, dmarc_records = check_dmarc(domain)
+        dkim_status, dkim_records = check_dkim(domain, selectors=dkim_selectors)
+        try:
+            with transaction.atomic():
+                email_domain_obj, created = EmailDomains.objects.select_for_update().get_or_create(
+                    domain=domain,
+                    defaults={
+                        "email": email,
+                        "mx_status": mx_status,
+                        "mx_records": mx_records,
+                        "smtp_status": smtp_status,
+                        "smtp_response": smtp_response,
+                        "spf_status": spf_status,
+                        "spf_records": spf_records,
+                        "dmarc_status": dmarc_status,
+                        "dmarc_records": dmarc_records,
+                        "dkim_status": dkim_status,
+                        "dkim_selector": dkim_selectors,
+                        "dkim_records": dkim_records,
+                    },
+                )
+        except IntegrityError:
+            pass
+    return True

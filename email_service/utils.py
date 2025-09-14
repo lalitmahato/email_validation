@@ -18,6 +18,17 @@ def email_validator(email):
     return False
 
 
+def get_unique_domain_from_email(emails):
+    unique_domain = []
+    unique_email_domain = []
+    for email in emails:
+        domain = email.split("@")[1]
+        if domain not in unique_domain:
+            unique_domain.append(domain)
+            unique_email_domain.append({"email": email, "domain": domain})
+    return unique_email_domain
+
+
 def get_mx_records(domain):
     try:
         mx_records = resolver.resolve(domain, "MX")
@@ -29,7 +40,7 @@ def get_mx_records(domain):
         return False, []
 
 
-def smtp_verification(mx_record, email, timeout=8):
+def smtp_verification(mx_record, email, timeout=5):
     try:
         with smtplib.SMTP(mx_record, 25, timeout=timeout) as server:
             server.ehlo_or_helo_if_needed()
