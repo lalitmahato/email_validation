@@ -29,7 +29,7 @@ def get_mx_records(domain):
         return False, []
 
 
-def smtp_verification(mx_record, email, timeout=5):
+def smtp_verification(mx_record, email, timeout=8):
     try:
         with smtplib.SMTP(mx_record, 25, timeout=timeout) as server:
             server.ehlo_or_helo_if_needed()
