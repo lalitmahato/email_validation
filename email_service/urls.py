@@ -1,6 +1,7 @@
 from django.urls import path, include
-from email_service.views import ValidateEmailsView
+from email_service.views import ValidateEmailsView, LiveEmailsValidateView
 
 urlpatterns = [
-    path("api/validate/", ValidateEmailsView.as_view(), name="validate_email"),
+    path("multiple-emails/validate/", ValidateEmailsView.as_view(), name="validate_email"),
+    path("live-email/validate/", LiveEmailsValidateView.as_view(), name="live_email_validate"),
 ]
