@@ -85,38 +85,16 @@ def create_domain_record(data):
     from email_service.utils import (
         get_mx_records, get_top_level_domain, get_dkim_selector, smtp_verification, check_spf, check_dmarc, check_dkim
     )
-    print(data, type(data))
     domain = data.get("domain")
-    print(domain, type(domain))
     email = data.get("email")
-    print(email, type(email))
     if not EmailDomains.objects.filter(domain=domain).exists():
         mx_status, mx_records = get_mx_records(domain)
-        print("MX:")
-        print("mx_status", mx_status, type(mx_status))
-        print("mx_records", mx_records, type(mx_records))
-        # if not mx_status:
-        #     return {"email": email, "message": "MX Record is missing"}
         mx_top_level_domain = get_top_level_domain(mx_records[0])
-        print("mx_top_level_domain", mx_top_level_domain, type(mx_top_level_domain))
         dkim_selectors = get_dkim_selector(mx_top_level_domain)
-        print("dkim_selectors", dkim_selectors, type(dkim_selectors))
         smtp_status, smtp_response = smtp_verification(mx_records[0], email)
-        print("SMTP:")
-        print("smtp_status", smtp_status, type(smtp_status))
-        print("smtp_response", smtp_response, type(smtp_response))
         spf_status, spf_records = check_spf(domain)
-        print("SPF:")
-        print("spf_status", spf_status, type(spf_status))
-        print("spf_records", spf_records, type(spf_records))
         dmarc_status, dmarc_records = check_dmarc(domain)
-        print("DMARC:")
-        print("dmarc_status", dmarc_status, type(dmarc_status))
-        print("dmarc_records", dmarc_records, type(dmarc_records))
         dkim_status, dkim_records = check_dkim(domain, selectors=dkim_selectors)
-        print("DKIM:")
-        print("dkim_status", dkim_status, type(dkim_status))
-        print("dkim_records", dkim_records, type(dkim_records))
         try:
             with transaction.atomic():
                 email_domain_obj, created = EmailDomains.objects.select_for_update().get_or_create(
