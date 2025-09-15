@@ -80,7 +80,7 @@ def get_smtp_records(email):
 
 
 @app.task
-def create_email_domain_record(emails_domains):
+def create_domain_record(emails_domains):
     from email_service.models import EmailDomains
     from email_service.utils import (
         get_mx_records, get_top_level_domain, get_dkim_selector, smtp_verification, check_spf, check_dmarc, check_dkim

@@ -19,14 +19,15 @@ def email_validator(email):
 
 
 def get_unique_domain_from_email(emails):
-    unique_domain = []
-    unique_email_domain = []
+    unique_domains = []
+    unique_emails_domains = []
     for email in emails:
         domain = email.split("@")[1]
-        if domain not in unique_domain:
-            unique_domain.append(domain)
-            unique_email_domain.append({"email": email, "domain": domain})
-    return unique_email_domain
+        if domain not in unique_domains:
+            unique_domains.append(domain)
+            if not EmailDomains.objects.filter(domain=domain).exists():
+                unique_emails_domains.append({"email": email, "domain": domain})
+    return unique_domains, unique_emails_domains
 
 
 def get_mx_records(domain):
