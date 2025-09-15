@@ -15,6 +15,7 @@ from pathlib import Path
 import os
 from decouple import config
 from corsheaders.defaults import default_headers
+from django.conf.global_settings import LOGIN_URL
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -149,6 +150,8 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+LOGIN_URL="/admin/login/"
 
 
 # Static files (CSS, JavaScript, Images)
