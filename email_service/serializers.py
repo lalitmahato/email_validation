@@ -10,3 +10,8 @@ class EmailDomainSerializer(serializers.ModelSerializer):
 
 class ValidateRequestSerializer(serializers.Serializer):
     emails = serializers.ListField(child=serializers.EmailField(), allow_empty=False)
+
+    def validate_emails(self, value):
+        if len(value) != len(set(value)):
+            raise serializers.ValidationError("Emails must be unique.")
+        return value

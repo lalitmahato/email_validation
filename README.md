@@ -1,14 +1,18 @@
 # Email Validator API 
 
+Live URL: https://email-validation.lalitmahato.com.np/
+Swagger URL: https://email-validation.lalitmahato.com.np/api/v1/swagger/
+Redoc URL: https://email-validation.lalitmahato.com.np/api/v1/redoc/
+
 ## Setup Process
 ### Create ```.env``` file and add the following environment variables:
 ```dotenv
 SECRET_KEY=secret_key
 DEBUG=True
 ALLOWED_HOSTS=localhost,127.0.0.1
-CSRF_TRUSTED_ORIGINS=http://localhost:5010
-ALLOWED_ORIGINS=http://localhost:5010
-SWAGGER_URL=http://localhost:5010/
+CSRF_TRUSTED_ORIGINS=http://localhost:8004
+ALLOWED_ORIGINS=http://localhost:8004
+SWAGGER_URL=http://localhost:8004/
 
 # Database Config
 DB_ENGINE=django.db.backends.postgresql
@@ -32,8 +36,6 @@ EMAIL_HOST_PASSWORD=password
 flower_username=username
 flower_password=password
 
-# Pagination Setting
-PAGE_SIZE=20
 
 # Redis DB Setup
 BROKER_URL=redis://redis:6379/0

@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     container_name: email_validation
     restart: always
-    command: sh -c "gunicorn core.wsgi:application --bind 0.0.0.0:8000" # uncomment this on production
+    command: sh -c "gunicorn core.wsgi:application --bind 0.0.0.0:8000 --timeout 600" # uncomment this on production
 #    command: python manage.py runserver 0.0.0.0:8000 # comment this on production
     volumes:
       - ./:/code/
