@@ -47,7 +47,9 @@ def smtp_verification(mx_record, email, timeout=5):
             server.ehlo_or_helo_if_needed()
             server.mail(email)
             code, response = server.rcpt(email)
-            return True, {"code": code, "result": f"{response}"}
+            if 200 <= code < 300:
+                return True, {"code": code, "result": f"{response}"}
+            return False, {"code": code, "result": f"{response}"}
     except Exception as e:
         print(e)
     return False, {"message": "Unable to connect to the smtp server."}
