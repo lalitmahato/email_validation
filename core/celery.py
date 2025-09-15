@@ -118,4 +118,4 @@ def create_domain_record(emails_domains):
                 )
         except IntegrityError:
             pass
-    return {"status":True}
+    return {"status":"ok"}
