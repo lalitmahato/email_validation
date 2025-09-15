@@ -89,6 +89,8 @@ def create_domain_record(data):
     email = data.get("email")
     if not EmailDomains.objects.filter(domain=domain).exists():
         mx_status, mx_records = get_mx_records(domain)
+        if not mx_status:
+            return False
         mx_top_level_domain = get_top_level_domain(mx_records[0])
         dkim_selectors = get_dkim_selector(mx_top_level_domain)
         smtp_status, smtp_response = smtp_verification(mx_records[0], email)
