@@ -12,7 +12,7 @@ class DKIMDefaultSelectorAdmin(admin.ModelAdmin):
 
 @admin.register(EmailDomains)
 class EmailDomainsAdmin(admin.ModelAdmin):
-    list_display = ["id", 'domain', 'mx_status', 'spf_status', 'dmarc_status', 'dkim_status', 'status', 'created_at', 'updated_at']
+    list_display = ["id", 'domain', 'mx_status', 'smtp_server_status', 'spf_status', 'dmarc_status', 'dkim_status', 'status', 'created_at', 'updated_at']
     search_fields = ["id", 'domain', 'mx_records', 'spf_records', 'dmarc_records', 'dkim_records', 'dkim_selector']
     list_filter = ['status', 'created_at', 'updated_at']
     ordering = ['-created_at']
