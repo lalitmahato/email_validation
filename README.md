@@ -60,15 +60,6 @@ Password: P@ssw0rd@##!!
 
 ---
 
-## Advantages
-- Clear separation of roles (Admin, Instructor, Student).
-- Reliable background processing with **Celery + Redis**.
-- Strong relational structure with PostgreSQL.
-- Flexible metadata model for advanced use cases (Eg: page view).
-- Django’s built-in **security and authentication**.
-
----
-
 # Setup Process
 ## Setup Instructions
 
