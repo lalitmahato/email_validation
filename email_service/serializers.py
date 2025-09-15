@@ -5,7 +5,7 @@ from email_service.models import EmailDomains
 class EmailDomainSerializer(serializers.ModelSerializer):
     class Meta:
         model = EmailDomains
-        fields = ["domain", "mx_records", "spf_records", "dmarc_records", "dkim_records"]
+        fields = ["domain", "mx_records", "smtp_server_status", "spf_records", "dmarc_records", "dkim_records"]
 
 
 class ValidateRequestSerializer(serializers.Serializer):

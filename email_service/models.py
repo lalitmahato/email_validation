@@ -22,7 +22,7 @@ class EmailDomains(models.Model):
     # MX Record Management
     mx_status = models.BooleanField(default=False, null=True)
     mx_records = models.JSONField(default=list, null=True)
-    smtp_status = models.BooleanField(default=False, null=True)
+    smtp_server_status = models.BooleanField(default=False, null=True)
     smtp_response = models.JSONField(null=True)
     # SPF Record Management
     spf_status = models.BooleanField(default=False, null=True)

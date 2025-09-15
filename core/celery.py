@@ -46,7 +46,7 @@ def update_domain_records(record_id):
 
         email_domain_obj.mx_status = mx_status
         email_domain_obj.mx_records = mx_records
-        email_domain_obj.smtp_status = smtp_status
+        email_domain_obj.smtp_server_status = smtp_status
         email_domain_obj.smtp_response = smtp_response
         email_domain_obj.spf_status = spf_status
         email_domain_obj.spf_records = spf_records
@@ -105,7 +105,7 @@ def create_domain_record(data):
                         "email": email,
                         "mx_status": mx_status,
                         "mx_records": mx_records,
-                        "smtp_status": smtp_status,
+                        "smtp_server_status": smtp_status,
                         "smtp_response": smtp_response,
                         "spf_status": spf_status,
                         "spf_records": spf_records,
