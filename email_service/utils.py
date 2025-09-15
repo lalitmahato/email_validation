@@ -171,6 +171,27 @@ def get_live_smtp_records(email):
     spf_status, spf_records = check_spf(domain)
     dmarc_status, dmarc_records = check_dmarc(domain)
     dkim_status, dkim_records = check_dkim(domain, selectors=dkim_selectors)
+    try:
+        with transaction.atomic():
+            email_domain_obj, created = EmailDomains.objects.select_for_update().get_or_create(
+                domain=domain,
+                defaults={
+                    "email": email,
+                    "mx_status": mx_status,
+                    "mx_records": mx_records,
+                    "smtp_status": smtp_status,
+                    "smtp_response": smtp_response,
+                    "spf_status": spf_status,
+                    "spf_records": spf_records,
+                    "dmarc_status": dmarc_status,
+                    "dmarc_records": dmarc_records,
+                    "dkim_status": dkim_status,
+                    "dkim_selector": dkim_selectors,
+                    "dkim_records": dkim_records,
+                },
+            )
+    except IntegrityError:
+        pass
     return {
         "email": email,
         "result": {

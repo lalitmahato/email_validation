@@ -6,7 +6,6 @@ from celery import Celery, shared_task
 from celery.schedules import crontab
 from django.db import transaction, IntegrityError
 
-
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
 
 app = Celery('core')
@@ -22,6 +21,7 @@ app.autodiscover_tasks()
 @app.on_after_configure.connect
 def smtp_updater_task(sender, **kwargs):
     sender.add_periodic_task(crontab(minute="*/30"), smtp_auto_updater.s())
+
 
 @shared_task()
 def update_domain_records(record_id):
