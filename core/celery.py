@@ -80,11 +80,13 @@ def get_smtp_records(email):
 
 
 @app.task
-def create_domain_record(emails_domains):
+def create_domain_record(data):
+    import json
     from email_service.models import EmailDomains
     from email_service.utils import (
         get_mx_records, get_top_level_domain, get_dkim_selector, smtp_verification, check_spf, check_dmarc, check_dkim
     )
+    emails_domains = json.loads(data)
     domain = emails_domains.get("domain")
     email = emails_domains.get("email")
     if not EmailDomains.objects.filter(domain=domain).exists():
