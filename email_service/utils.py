@@ -48,8 +48,8 @@ def smtp_verification(mx_record, email, timeout=5):
             server.mail(email)
             code, response = server.rcpt(email)
             if 200 <= code < 300:
-                return True, {"code": code, "result": f"{response}"}
-            return False, {"code": code, "result": f"{response}"}
+                return True, {"code": code, "result": f"{str(response)}"}
+            return False, {"code": code, "result": f"{str(response)}"}
     except Exception as e:
         print(e)
     return False, {"message": "Unable to connect to the smtp server."}
@@ -158,3 +158,28 @@ def get_smtp_records(email):
     data = serializer.data
     data["email"] = email
     return data
+
+
+def get_live_smtp_records(email):
+    domain = email.split("@")[1]
+    mx_status, mx_records = get_mx_records(domain)
+    if not mx_status:
+        return {"email": email, "message": "MX Record is missing or email domain is not valid"}
+    mx_top_level_domain = get_top_level_domain(mx_records[0])
+    dkim_selectors = get_dkim_selector(mx_top_level_domain)
+    smtp_status, smtp_response = smtp_verification(mx_records[0], email, timeout=10)
+    spf_status, spf_records = check_spf(domain)
+    dmarc_status, dmarc_records = check_dmarc(domain)
+    dkim_status, dkim_records = check_dkim(domain, selectors=dkim_selectors)
+    return {
+        "email": email,
+        "result": {
+            "domain": domain,
+            "mx_records": mx_records,
+            "smtp_status": smtp_status,
+            "smtp_response": smtp_response,
+            "spf_records": spf_records,
+            "dmarc_records": dmarc_records,
+            "dkim_records": dkim_records
+        }
+    }

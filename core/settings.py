@@ -152,6 +152,7 @@ USE_I18N = True
 USE_TZ = True
 
 LOGIN_URL="/admin/login/"
+LOGOUT_URL="/admin/logout/"
 
 
 # Static files (CSS, JavaScript, Images)

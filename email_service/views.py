@@ -3,9 +3,9 @@ from rest_framework.response import Response
 from rest_framework import status
 from celery import chord, group, chain
 from core.celery import get_smtp_records, aggregate_results, create_domain_record
-from email_service.utils import get_unique_domain_from_email
+from email_service.utils import get_unique_domain_from_email, get_live_smtp_records
 from email_service.models import EmailDomains
-from email_service.serializers import ValidateRequestSerializer, EmailDomainSerializer
+from email_service.serializers import ValidateRequestSerializer, EmailDomainSerializer, LiveEmailRequestSerializer
 
 
 class ValidateEmailsView(CreateAPIView):
@@ -39,4 +39,19 @@ class ValidateEmailsView(CreateAPIView):
             {"email": email, "result": domain_wise_result.get(email.split("@")[1], {"message": "Unable to get dns records"})}
             for email in emails
         ]
+        return Response(final_result, status=status.HTTP_200_OK)
+
+
+class LiveEmailsValidateView(CreateAPIView):
+    """
+    POST /api/v1/email-service/api/validate/
+    { "email": "a@b.com" }
+    """
+    serializer_class = LiveEmailRequestSerializer
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        email = serializer.validated_data["email"]
+        final_result = get_live_smtp_records(email)
         return Response(final_result, status=status.HTTP_200_OK)

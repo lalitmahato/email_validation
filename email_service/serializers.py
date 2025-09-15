@@ -15,3 +15,7 @@ class ValidateRequestSerializer(serializers.Serializer):
         if len(value) != len(set(value)):
             raise serializers.ValidationError("Emails must be unique.")
         return value
+
+
+class LiveEmailRequestSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=True)
